@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Calendar, Phone, Sparkles, Star, ShieldCheck } from 'lucide-react';
-import ThreeDTooth from './ThreeDTooth';
+
+// Lazy-load the heavy 3D WebGL Tooth Component for instant page paint
+const ThreeDTooth = lazy(() => import('./ThreeDTooth'));
+
+function ToothSkeleton() {
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center relative rounded-3xl bg-slate-900/40 border border-white/5 overflow-hidden animate-pulse">
+      {/* Holographic grid backdrop */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] pointer-events-none" />
+      
+      {/* Glowing core */}
+      <div className="absolute w-24 h-24 bg-sky-500/10 rounded-full blur-xl animate-pulse" />
+      
+      {/* Clean high-tech Tooth Vector */}
+      <svg className="w-16 h-16 text-sky-400/40 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C8.5 2 6 4 6 7.5c0 3 1.5 4.5 2.5 5.5l-1 5c-.5 2 1 3.5 2.5 3.5s2-1 2-2.5V17m0-15c3.5 0 6 2 6 5.5 0 3-1.5 4.5-2.5 5.5l1 5c.5 2-1 3.5-2.5 3.5s-2-1-2-2.5V17" />
+      </svg>
+      
+      <span className="text-[10px] font-mono tracking-widest text-sky-400/80">CAD MODEL ACTIVE...</span>
+    </div>
+  );
+}
 
 interface HeroProps {
   onNavigateToBooking: () => void;
@@ -98,7 +119,9 @@ export default function Hero({ onNavigateToBooking }: HeroProps) {
 
             {/* Three.js tooth rendering element */}
             <div className="w-full aspect-square max-w-[360px] h-[360px] relative z-10 filter drop-shadow-2xl">
-              <ThreeDTooth className="w-full h-full" autoRotateSpeed={1.5} highlightColor="#0ea5e9" minimal={true} />
+              <Suspense fallback={<ToothSkeleton />}>
+                <ThreeDTooth className="w-full h-full" autoRotateSpeed={1.5} highlightColor="#0ea5e9" minimal={true} />
+              </Suspense>
             </div>
 
           </div>

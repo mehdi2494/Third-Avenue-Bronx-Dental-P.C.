@@ -97,9 +97,12 @@ export default function ThreeDSmile({ className = '' }: ThreeDSmileProps) {
               src="/input_file_2.png"
               alt="After Smile Transformation"
               className={`w-full h-full object-cover object-center scale-[1.03] transition-all duration-300 ${
-                activeFilter === 'xray' ? 'filter invert brightness-[1.1] hue-rotate-180 contrast-125' : ''
+                activeFilter === 'xray' 
+                  ? 'filter invert brightness-[1.1] hue-rotate-180 contrast-125' 
+                  : 'filter brightness-[1.12] saturate-[0.84] contrast-[1.06]'
               }`}
               referrerPolicy="no-referrer"
+              loading="lazy"
             />
             
             {/* Elegant luxury HUD layout */}
@@ -137,6 +140,7 @@ export default function ThreeDSmile({ className = '' }: ThreeDSmileProps) {
                 }`}
                 style={{ width: containerRef.current?.clientWidth || 640 }}
                 referrerPolicy="no-referrer"
+                loading="lazy"
               />
               
               {/* Stained Shade Tag Overlay */}

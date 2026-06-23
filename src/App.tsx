@@ -1,10 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
 import Stats from './components/Stats';
-import ThreeDSmile from './components/ThreeDSmile';
+
+// Dynamic lazy load of the image comparison engine to maximize page speed
+const ThreeDSmile = lazy(() => import('./components/ThreeDSmile'));
+
+function SmileSkeleton() {
+  return (
+    <div className="w-full aspect-[16/10] flex flex-col items-center justify-center relative rounded-3xl bg-slate-950 border border-white/10 overflow-hidden animate-pulse">
+      {/* Holographic grid backdrop */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] pointer-events-none" />
+      <span className="text-xs font-mono text-slate-400">INITIALIZING IMAGING FEED...</span>
+    </div>
+  );
+}
+
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import { 
@@ -108,7 +121,9 @@ export default function App() {
             </div>
 
             {/* Slider frame */}
-            <ThreeDSmile className="w-full relative" />
+            <Suspense fallback={<SmileSkeleton />}>
+              <ThreeDSmile className="w-full relative" />
+            </Suspense>
 
           </div>
         </section>
