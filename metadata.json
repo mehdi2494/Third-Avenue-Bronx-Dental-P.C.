@@ -1,0 +1,6 @@
+{
+  "name": "Third Avenue Bronx Dental",
+  "description": "Premium dental clinic website for Third Avenue Bronx Dental P.C. in the Bronx, featuring 3D animations, interactive appointment scheduling, smile transformations, and comprehensive family care.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
